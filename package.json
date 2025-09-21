@@ -1,0 +1,16 @@
+{
+  "name": "lesensei",
+  "version": "1.0.0",
+  "type": "module",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run dev --prefix lesensei\" \"npm run start --prefix lesenseiBack\"",
+    "vercel-build": "cd lesensei && npm install && npm run build"
+  },
+  "dependencies": {
+    "dompurify": "^3.2.7",
+    "firebase": "^12.3.0"
+  }
+}

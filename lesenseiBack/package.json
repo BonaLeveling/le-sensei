@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "lesenseiback",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "serveur.js",
+  "scripts": {
+    "start":  "concurrently \"node serveur.js\" \"node serveur2.js\""
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0"
+  }
+}

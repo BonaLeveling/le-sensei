@@ -1,0 +1,9 @@
+.chat-box::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+  
+.chat-box {
+    -ms-overflow-style: none; /* IE et Edge */
+    scrollbar-width: none; /* Firefox */
+}
+  
