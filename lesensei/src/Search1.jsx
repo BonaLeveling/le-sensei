@@ -15,7 +15,7 @@ function Search1() {
 
     setLoading(true);
     try {
-      const res = await fetch(`https://le-sensei-o9za.vercel.app/api/search-anime`, {
+      const res = await fetch(`https://le-sensei-o9za.vercel.app/serveur2`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: input }),
