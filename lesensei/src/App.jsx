@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={
           <>
-          <div className="bg-[url('bg1.jpg')] bg-center bg-cover bg-no-repeat h-screen w-screen absolute">
+          <div className="bg-[url('/bg1.jpg')] bg-center bg-cover bg-no-repeat h-screen w-screen absolute">
             <div className="bg-[rgba(0,0,0,0.1)] h-screen w-screen">
               <Navbar />
               <Search1 />

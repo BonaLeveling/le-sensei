@@ -29,7 +29,7 @@ function Chat() {
     setLoading(true); 
 
     try {
-      const res = await fetch("/lesenseiBack/chat-gemini", {
+      const res = await fetch("/api/chat-gemini", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
@@ -38,7 +38,11 @@ function Chat() {
       const data = await res.json();
 
       // Ajouter le message du bot
-      setMessages((prev) => [...prev, { from: "Le sensei", text: data.reply, avatar: perso }]);
+      setMessages((prev) => [
+        ...prev,
+        { from: "Le sensei", text: data.reply || "Pas de réponse disponible.", avatar: perso }
+      ]);
+      
 
     } catch (err) {
       console.error("Erreur fetch :", err);
@@ -46,18 +50,17 @@ function Chat() {
     } finally {
       setLoading(false); 
     }
-
-    setInput("");
   };
 
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTo({
-        top: chatContainerRef.current.scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  }, [messages]);
+useEffect(() => {
+  if (messages.length > 0 && chatContainerRef.current) {
+    chatContainerRef.current.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }
+}, [messages]);
+
 
   const scrollToTop = () => {
     if (chatContainerRef.current) {
@@ -69,7 +72,7 @@ function Chat() {
   };
 
   return (
-    <div className="flex flex-col chat-box bg-[url('bg5.jpg')] h-screen object-cover relative">
+    <div className="flex flex-col chat-box bg-[url('/bg5.jpg')] h-screen object-cover relative">
       {/* Topbar */}
       <div className='bg-[rgba(255,255,255,0.8)] px-5 py-2 flex justify-between items-center mb-5 w-full'>
         <div className='flex items-center gap-2'>

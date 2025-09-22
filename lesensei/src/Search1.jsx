@@ -14,7 +14,7 @@ function Search1() {
 
     setLoading(true);
     try {
-      const res = await axios.post("/lesenseiBack/search-anime", { query: input });
+      const res = await axios.post("/api/search-anime", { query: input });
       setAnimeResults(res.data.results || []);
       setShowPopup(true); // afficher le pop-up
     } catch (err) {
@@ -77,7 +77,12 @@ function Search1() {
                   <img src={anime.image} alt={anime.title} className="w-16 h-20 rounded-lg object-cover"/>
                   <div>
                     <h3 className="font-bold text-gray-900">{anime.title}</h3>
-                    <p className="text-sm text-gray-700">{anime.synopsis?.substring(0, 150)} + "..." : "Pas de synopsis disponible</p>
+                    <p className="text-sm text-gray-700">
+                      {anime.synopsis
+                        ? anime.synopsis.substring(0, 150) + "..."
+                        : "Pas de synopsis disponible"}
+                    </p>
+
                     <a href={anime.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline text-sm">Voir sur MAL</a>
                   </div>
                 </div>

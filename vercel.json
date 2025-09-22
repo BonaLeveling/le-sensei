@@ -1,19 +1,19 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "lesensei/package.json",
-        "use": "@vercel/static-dist",
-        "config": { "distDir": "dist" }
-      },
-      {
-        "src": "lesenseiBack/**/*.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      { "src": "/lesenseiBack/(.*)", "dest": "/lesenseiBack/$1.js" },
-      { "src": "/(.*)", "dest": "/index.html" }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "lesensei/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    },
+    {
+      "src": "lesenseiBack/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "/api/chat-gemini", "dest": "/lesenseiBack/serveur1.js" },
+    { "src": "/api/search-anime", "dest": "/lesenseiBack/serveur2.js" },
+    { "src": "/(.*)", "dest": "/lesensei/dist/index.html" }
+  ]
+}
