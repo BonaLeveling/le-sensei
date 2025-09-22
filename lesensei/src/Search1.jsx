@@ -1,5 +1,4 @@
 import './input.css';
-import axios from "axios";
 import { useState } from "react";
 
 function Search1() {
@@ -8,14 +7,22 @@ function Search1() {
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const BACK_URL = process.env.REACT_APP_BACK_URL;
+
   // Fonction pour lancer la recherche
   const handleSearch = async () => {
     if (!input.trim()) return;
 
     setLoading(true);
     try {
-      const res = await axios.post("/api/search-anime", { query: input });
-      setAnimeResults(res.data.results || []);
+      const res = await fetch(`${BACK_URL}/api/search-anime`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: input }),
+      });
+
+      const data = await res.json();
+      setAnimeResults(data.results || []);
       setShowPopup(true); // afficher le pop-up
     } catch (err) {
       console.error(err);
@@ -82,7 +89,6 @@ function Search1() {
                         ? anime.synopsis.substring(0, 150) + "..."
                         : "Pas de synopsis disponible"}
                     </p>
-
                     <a href={anime.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline text-sm">Voir sur MAL</a>
                   </div>
                 </div>
