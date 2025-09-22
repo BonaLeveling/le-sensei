@@ -5,7 +5,7 @@ import cors from "cors";
 dotenv.config();
 
 const corsMiddleware = cors({
-  origin: ['https://le-sensei.vercel.app','https://le-sensei-kipc.vercel.app'], // L'URL de votre front-end
+  origin: ['https://le-sensei.vercel.app', 'https://le-sensei-kipc.vercel.app'],
   methods: ["POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
 });
@@ -35,44 +35,20 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Méthode non autorisée" });
   }
 
-  const { message } = req.body;
+  // ✅ Récupère l'historique et le nouveau message du front-end
+  const { message, history } = req.body;
   if (!message || message.trim() === "") {
     return res.status(400).json({ error: "Aucun message fourni" });
   }
 
   try {
-    // ✅ L'historique de conversation est maintenant à l'intérieur de la fonction
-    // Cela garantit que chaque requête est une conversation unique
-    let conversationHistory = [
-      {
-        role: "user",
-        parts: [
-          {
-            text:
-              "Tu es Le Sensei, un sensei qui ne parle QUE de mangas, d'animes, de webtoons et de jeux vidéo. " +
-              "Si on te pose une question qui n’a rien à voir avec les mangas, tu refuses poliment et ramènes la conversation vers les mangas. " +
-              "Rajoute des couleurs de textes, des emojis à tes réponses pour que ça fasse plus otaku. " +
-              "Donne aussi des proverbes et des conseils en termes de mangas, et surtout sois concis."
-          }
-        ]
-      },
-      {
-        role: "model",
-        parts: [{ text: "Compris ! Je ne parlerai que de mangas. Pose-moi ta question !" }]
-      }
-    ];
-
-    conversationHistory.push({ role: "user", parts: [{ text: message }] });
-
     const chat = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }).startChat({
-      history: conversationHistory,
+      history: history, // ✅ Utilise l'historique fourni par le front-end
       generationConfig: { maxOutputTokens: 200 }
     });
 
     const result = await chat.sendMessage(message);
     const reply = result.response.text();
-
-    conversationHistory.push({ role: "model", parts: [{ text: reply }] });
 
     res.status(200).json({ reply });
   } catch (error) {
