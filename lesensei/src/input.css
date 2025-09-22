@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Luckiest+Guy&family=Rubik+Burned&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Luckiest+Guy&family=Rubik+Burned&family=Sawarabi+Gothic&family=Sawarabi+Mincho&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Luckiest+Guy&family=Rubik+Burned&family=Sawarabi+Mincho&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kosugi+Maru&family=Luckiest+Guy&family=Rubik+Burned&family=Sawarabi+Gothic&family=Sawarabi+Mincho&display=swap');
-@import "tailwindcss";
+
+
 
 
 
