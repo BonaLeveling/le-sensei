@@ -30,7 +30,7 @@ function Chat() {
 
     try {
       const BACK_URL = process.env.REACT_APP_BACK_URL;
-      const res = await fetch(`${BACK_URL}/api/chat-gemini`, {
+      const res = await fetch(`https://le-sensei-o9za.vercel.app/api/chat-gemini`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: input }),
