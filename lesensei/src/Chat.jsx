@@ -29,7 +29,7 @@ function Chat() {
     setLoading(true); 
 
     try {
-      const res = await fetch("/api/chat-gemini", {
+      const res = await fetch("https://le-sensei-o9za.vercel.app/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
