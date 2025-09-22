@@ -7,7 +7,7 @@
       "config": { "distDir": "dist" }
     },
     {
-      "src": "lesenseiBack/serveur1.js",
+      "src": "lesenseiBack/serveur.js",
       "use": "@vercel/node"
     },
     {
@@ -18,7 +18,7 @@
   "routes": [
     {
       "src": "/api/chat-gemini",
-      "dest": "/lesenseiBack/serveur1.js"
+      "dest": "/lesenseiBack/serveur.js"
     },
     {
       "src": "/api/search-anime",

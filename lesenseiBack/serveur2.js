@@ -1,7 +1,32 @@
 // api/search-anime.js
-import fetch from "node-fetch"; // si Node <18
+
+import fetch from "node-fetch";
+import cors from "cors";
+
+// Initialisez le middleware CORS
+const corsMiddleware = cors({
+  origin: "https://le-sensei.vercel.app", // L'origine de votre front-end
+  methods: ["POST", "OPTIONS"], // Méthodes HTTP autorisées
+  allowedHeaders: ["Content-Type"], // En-têtes autorisés
+});
 
 export default async function handler(req, res) {
+  // Exécutez le middleware CORS
+  await new Promise((resolve, reject) => {
+    corsMiddleware(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
+
+  // Gérez la requête de pré-vérification (OPTIONS)
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  // Gérez la requête principale (POST)
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Méthode non autorisée" });
   }
@@ -17,7 +42,7 @@ export default async function handler(req, res) {
     );
 
     if (!response.ok) {
-      throw new Error(`Jikan API error: ${response.status}`);
+      throw new Error(`Erreur de l'API Jikan : ${response.status}`);
     }
 
     const data = await response.json();
@@ -31,7 +56,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({ results });
   } catch (err) {
-    console.error("Erreur Jikan API:", err.message);
-    res.status(500).json({ error: "Erreur Jikan API" });
+    console.error("Erreur API Jikan:", err.message);
+    res.status(500).json({ error: "Erreur API Jikan" });
   }
 }

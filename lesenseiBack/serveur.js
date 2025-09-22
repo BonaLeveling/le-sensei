@@ -1,8 +1,16 @@
 // api/chat-gemini.js
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
+import cors from "cors";
+
 dotenv.config();
 
+// Initialisez le middleware CORS
+const corsMiddleware = cors({
+  origin: 'https://le-sensei.vercel.app', // L'URL de votre front-end
+  methods: ["POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+});
 
 // Vérifie que la variable d'environnement est définie
 const apiKey = process.env.GEMINI_API_KEY;
@@ -33,6 +41,22 @@ let conversationHistory = [
 ];
 
 export default async function handler(req, res) {
+  // Exécutez le middleware CORS
+  await new Promise((resolve, reject) => {
+    corsMiddleware(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
+
+  // Gérez la requête de pré-vérification (OPTIONS)
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  // Gérez la requête principale (POST)
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Méthode non autorisée" });
   }
