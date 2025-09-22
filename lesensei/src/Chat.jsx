@@ -149,7 +149,7 @@ function Chat() {
 
       {/* Input */}
       <div className='flex absolute bottom-0 w-full px-5 pb-3'>
-        <div className='mx-auto flex justify-center items-center w-full md:w-150 lg:w-200' >
+        <div className='mx-auto flex justify-center items-center w-80 rounded-4xl bg-[rgba(0,0,0,0.5)] md:w-150 lg:w-200' >
           <input
             name='message'
             id='message'
@@ -162,7 +162,7 @@ function Chat() {
                 sendMessage();
               }
             }}
-            className='chat-box flex-grow h-10 bg-[rgba(255,255,255,0.8)] font-semibold border-1 pl-4 pr-10 py-1 md:py-2 w-70 rounded-4xl outline-none break-words sm:w-120 md:w-140'
+            className='chat-box flex-grow h-10 bg-[rgba(255,255,255,0.8)] font-semibold border-1 pl-4 pr-10 py-1 md:py-2 w-70 rounded-3xl outline-none break-words sm:w-120 md:w-140'
           />
           <button onClick={sendMessage}>
             <img src={send} alt="" className='w-11 hover:scale-70 ease-in-out duration-300'/>

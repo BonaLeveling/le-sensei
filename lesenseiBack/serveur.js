@@ -5,7 +5,7 @@ import cors from "cors";
 dotenv.config();
 
 const corsMiddleware = cors({
-  origin: 'https://le-sensei-kipc.vercel.app', // L'URL de votre front-end
+  origin: ['https://le-sensei.vercel.app','https://le-sensei-kipc.vercel.app'], // L'URL de votre front-end
   methods: ["POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
 });

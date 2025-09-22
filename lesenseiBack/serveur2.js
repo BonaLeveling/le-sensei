@@ -5,7 +5,7 @@ import cors from "cors";
 
 // Initialisez le middleware CORS
 const corsMiddleware = cors({
-  origin: "https://le-sensei-kipc.vercel.app", // L'origine de votre front-end
+  origin: ['https://le-sensei.vercel.app','https://le-sensei-kipc.vercel.app'], // L'origine de votre front-end
   methods: ["POST", "OPTIONS"], // Méthodes HTTP autorisées
   allowedHeaders: ["Content-Type"], // En-têtes autorisés
 });

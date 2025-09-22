@@ -56,13 +56,13 @@ function Navbar() {
           </Link>
           <Link
             to="/signin"
-            className="bg-black px-4 py-1 rounded-4xl hover:-translate-y-1 ease-in-out duration-300"
+            className="bg-black px-4 py-1 rounded-3xl hover:-translate-y-1 ease-in-out duration-300"
           >
             S'inscrire
           </Link>
           <Link
             to="/login"
-            className="border-1 px-4 py-1 rounded-4xl text-white hover:-translate-y-1 duration-300"
+            className="border-1 px-4 py-1 rounded-3xl text-white hover:-translate-y-1 duration-300"
           >
             Se connecter
           </Link>
