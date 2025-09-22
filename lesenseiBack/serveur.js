@@ -5,7 +5,7 @@ import cors from "cors";
 dotenv.config();
 
 const corsMiddleware = cors({
-  origin: 'https://le-sensei.vercel.app', // L'URL de votre front-end
+  origin: '', // L'URL de votre front-end
   methods: ["POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
 });
