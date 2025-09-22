@@ -1,3 +1,4 @@
+// Search1.jsx
 import './input.css';
 import { useState } from "react";
 
@@ -7,7 +8,8 @@ function Search1() {
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const BACK_URL = process.env.REACT_APP_BACK_URL;
+  // Utilisez une constante pour le lien de votre back-end
+  const BACK_URL = import.meta.env.VITE_BACK_URL || "http://localhost:3001";
 
   // Fonction pour lancer la recherche
   const handleSearch = async () => {
@@ -15,7 +17,8 @@ function Search1() {
 
     setLoading(true);
     try {
-      const res = await fetch(`https://le-sensei-o9za.vercel.app/serveur2`, {
+      // ✅ C'est le bon chemin pour Vercel :
+      const res = await fetch(`${BACK_URL}/serveur2`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: input }),
@@ -23,7 +26,7 @@ function Search1() {
 
       const data = await res.json();
       setAnimeResults(data.results || []);
-      setShowPopup(true); // afficher le pop-up
+      setShowPopup(true);
     } catch (err) {
       console.error(err);
       setAnimeResults([]);

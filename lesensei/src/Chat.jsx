@@ -9,16 +9,18 @@ import menu from './assets/menu.png';
 import perso from './assets/perso.jpg';
 import utilisateur from './assets/utilisateur.png';
 import { Link } from "react-router-dom";
-import DOMPurify from "dompurify"; // ✅ ajouté
-
+import DOMPurify from "dompurify";
 
 function Chat() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const chatContainerRef = useRef(null);
+  
+  // ✅ Utilisez une constante pour le lien du back-end
+  const BACK_URL = import.meta.env.VITE_BACK_URL || "http://localhost:3000";
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -26,16 +28,14 @@ function Chat() {
     // Ajouter le message de l'utilisateur
     setMessages([...messages, { from: "user", text: input, avatar: utilisateur }]);
     setInput("");
-    setLoading(true); 
+    setLoading(true);
 
     try {
-      const BACK_URL = process.env.REACT_APP_BACK_URL;
-      const res = await fetch(`https://le-sensei-o9za.vercel.app/serveur`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: input }),
+      const res = await fetch(`${BACK_URL}/serveur`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input }),
       });
-    
 
       const data = await res.json();
 
@@ -44,25 +44,22 @@ function Chat() {
         ...prev,
         { from: "Le sensei", text: data.reply || "Pas de réponse disponible.", avatar: perso }
       ]);
-      
-
     } catch (err) {
       console.error("Erreur fetch :", err);
       setMessages((prev) => [...prev, { from: "Le sensei", text: "Erreur réseau, réessaie plus tard.", avatar: perso}]);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
-useEffect(() => {
-  if (messages.length > 0 && chatContainerRef.current) {
-    chatContainerRef.current.scrollTo({
-      top: chatContainerRef.current.scrollHeight,
-      behavior: "smooth",
-    });
-  }
-}, [messages]);
-
+  useEffect(() => {
+    if (messages.length > 0 && chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
 
   const scrollToTop = () => {
     if (chatContainerRef.current) {
@@ -82,14 +79,14 @@ useEffect(() => {
           <div className='flex flex-col'>
             <span className='font-[Rubik_Burned] text-[16px] sm:text-xl'>Le sensei</span>
             <span className='font-[Roboto,sans_serif] text-[10px] sm:text-xs text-[rgba(0,0,0,0.7)]'>Par Bonaventure</span>
-          </div>    
-        </div>       
+          </div>
+        </div>
         <div>
-          <img src={menu} alt="" className='w-8 md:w-10 hover:scale-70 ease-in-out duration-300' onClick={() => setOpen(true)}/>    
-        </div>   
+          <img src={menu} alt="" className='w-8 md:w-10 hover:scale-70 ease-in-out duration-300' onClick={() => setOpen(true)}/>
+        </div>
         {open && (
           <div className="fixed inset-0 bg-black/50 z-40" onClick={() => setOpen(false)}/>
-        )}            
+        )}
       </div>
 
       {/* Sidebar */}
@@ -100,8 +97,8 @@ useEffect(() => {
       >
         <ul className="flex flex-col gap-5 text-sm md:text-xl lg:text-lg mt-10 ">
           <li className=' hover:text-[#ee4d4d] ease-in-out duration-300'><Link to="/">Accueil</Link></li>
-          <li className='  hover:text-[#ee4d4d] ease-in-out duration-300'><Link to="/chat">Chat</Link></li>
-          <li className='  hover:text-[#ee4d4d] '><Link to="/login">Connexion</Link></li>
+          <li className='  hover:text-[#ee4d4d] ease-in-out duration-300'><Link to="/chat">Chat</Link></li>
+          <li className='  hover:text-[#ee4d4d] '><Link to="/login">Connexion</Link></li>
         </ul>
       </div>
 
@@ -146,7 +143,7 @@ useEffect(() => {
               <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.2s]"></span>
               <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.4s]"></span>
             </span>
-          </div> 
+          </div>
         )}
       </div>
 
@@ -169,15 +166,15 @@ useEffect(() => {
           />
           <button onClick={sendMessage}>
             <img src={send} alt="" className='w-11 hover:scale-70 ease-in-out duration-300'/>
-          </button>                        
-        </div>                              
-      </div> 
+          </button>
+        </div>
+      </div>
 
       {/* Scroll to top */}
       <button onClick={scrollToTop}>
         <img src={uparrow} alt="Scroll to top" className='w-8 md:w-10 absolute bottom-30 right-5 hover:-translate-y-5 ease-in-out duration-300'/>
-      </button>           
-    </div>                
+      </button>
+    </div>
   );
 }
 
