@@ -62,7 +62,7 @@ function Navbar() {
           </Link>
           <Link
             to="/login"
-            className="border-1 px-4 py-1 rounded-3xl text-white hover:-translate-y-1 duration-300"
+            className="border px-4 py-1 rounded-3xl text-white hover:-translate-y-1 duration-300"
           >
             Se connecter
           </Link>
