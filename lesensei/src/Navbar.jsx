@@ -50,7 +50,7 @@ function Navbar() {
         <div className="font-Roboto hidden md:flex md:gap-5 md:ml-auto">
           <Link
             to="/chat"
-            className="font-[Rubik_Burned] font-semibold text-2xl hover:text-[rgba(255,255,255,0.8)] ease-in-out duration-300"
+            className="font-[Rubik_Burned] text-2xl hover:text-[rgba(255,255,255,0.8)] ease-in-out duration-300"
           >
             Chat
           </Link>
