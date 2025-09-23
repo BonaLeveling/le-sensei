@@ -9,7 +9,6 @@ function Search1() {
   const [loading, setLoading] = useState(false);
 
   // Utilisez une constante pour le lien de votre back-end
-  const BACK_URL = import.meta.env.VITE_BACK_URL || "http://localhost:3001";
 
   // Fonction pour lancer la recherche
   const handleSearch = async () => {
@@ -18,7 +17,7 @@ function Search1() {
     setLoading(true);
     try {
       // ✅ C'est le bon chemin pour Vercel :
-      const res = await fetch(`${BACK_URL}/serveur2`, {
+      const res = await fetch('/api/serveur2', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: input }),

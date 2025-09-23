@@ -19,8 +19,6 @@ function Chat() {
 
   const chatContainerRef = useRef(null);
   
-  const BACK_URL = import.meta.env.VITE_BACK_URL || "http://localhost:3000";
-
   const sendMessage = async () => {
     if (!input.trim()) return;
 
@@ -38,7 +36,7 @@ function Chat() {
     }));
     
     try {
-      const res = await fetch(`${BACK_URL}/serveur`, {
+      const res = await fetch('/api/serveur', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ history: historyForBackend }),
@@ -154,8 +152,8 @@ function Chat() {
       </div>
 
       {/* Input */}
-      <div className='flex absolute bottom-0 w-full px-5 pb-3'>
-        <div className='mx-auto flex justify-center items-center w-80 rounded-3xl bg-[rgba(0,0,0,0.5)] md:w-150 lg:w-200' >
+      <div className='flex absolute bottom-0 w-full px-6 pb-3'>
+        <div className='mx-auto flex justify-center items-center w-full rounded-3xl' >
           <input
             name='message'
             id='message'
