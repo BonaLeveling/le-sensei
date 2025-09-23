@@ -166,7 +166,7 @@ function Chat() {
                 sendMessage();
               }
             }}
-            className='chat-box flex-grow h-10 bg-[rgba(255,255,255,0.8)] font-semibold border-1 pl-4 pr-10 py-1 md:py-2 w-70 rounded-3xl outline-none break-words sm:w-120 md:w-140'
+            className='chat-box flex-grow h-10 bg-[rgba(255,255,255,0.8)] font-semibold border-1 pl-4 pr-10 py-1 md:py-2 w-70 rounded-3xl outline-none break-words sm:w-100 md:w-120'
           />
           <button onClick={sendMessage}>
             <img src={send} alt="" className='w-11 hover:scale-70 ease-in-out duration-300'/>
@@ -176,7 +176,7 @@ function Chat() {
 
       {/* Scroll to top */}
       <button onClick={scrollToTop}>
-        <img src={uparrow} alt="Scroll to top" className='w-8 md:w-10 absolute bottom-30 right-5 hover:-translate-y-5 ease-in-out duration-300'/>
+        <img src={uparrow} alt="Scroll to top" className='w-8 md:w-10 absolute bottom-40 right-5 hover:-translate-y-5 ease-in-out duration-300'/>
       </button>
     </div>
   );
