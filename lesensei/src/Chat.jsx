@@ -21,21 +21,18 @@ function Chat() {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    // Créez le message de l'utilisateur et mettez à jour l'état
     const userMessage = { from: "user", text: input, avatar: utilisateur };
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setInput("");
     setLoading(true);
 
-    // Préparez l'historique pour le back-end
     const historyForBackend = newMessages.map(msg => ({
       role: msg.from === "user" ? "user" : "model",
       parts: [{ text: msg.text }]
     }));
     
     try {
-      // ✅ URL de fetch corrigée pour le bon serveur et body corrigé
       const res = await fetch('/api/serveur', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -134,12 +131,12 @@ function Chat() {
             {/* Message */}
             {msg.from === "Le sensei" ? (
               <p
-                className="text-black h-auto max-w-2/4 px-3 py-2 bg-gray-100 rounded-2xl break-words"
+                className="text-black h-auto px-3 py-2 bg-gray-100 rounded-2xl break-words max-w-[80%] md:max-w-md"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(msg.text) }}
               />
             ) : (
               <p
-                className="text-white h-auto max-w-2/4 px-3 py-2 bg-[rgba(0,0,0,0.5)] rounded-xl break-words"
+                className="text-white h-auto px-3 py-2 bg-[rgba(0,0,0,0.5)] rounded-xl break-words max-w-[80%] md:max-w-md"
               >
                 <b>{msg.from}:</b> {msg.text}
               </p>
@@ -173,7 +170,7 @@ function Chat() {
                 sendMessage();
               }
             }}
-            className='chat-box text-flex-grow h-10 bg-[rgba(255,255,255,0.8)] w-4/5 md:w-3/5 border border-black font-semibold border-1 pl-4 pr-10 py-1 md:py-2 rounded-3xl outline-none break-words '
+            className='chat-box text-flex-grow h-10 bg-[rgba(255,255,255,0.8)] w-4/5 md:w-3/5 border border-black font-semibold border-1 px-2 py-1 md:py-2 rounded-3xl outline-none break-words '
           />
           <button onClick={sendMessage}>
           <img src={send} alt="" className='w-11 transform transition-transform hover:translate-x-2 ease-in-out duration-300'/>
