@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         rubik: ['Rubik Burned', 'sans-serif'],
-        roboto: ['Roboto']
+        roboto: ['Roboto', 'sans-serif'],
       }
     },
   },

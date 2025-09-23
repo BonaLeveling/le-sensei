@@ -89,7 +89,7 @@ function Navbar() {
 
       {/* Sidebar mobile */}
       <div
-        className={`fixed top-0 left-0 h-full w-1/3 bg-gray-900 text-white p-5 z-50 transform ${
+        className={`fixed top-0 left-0 h-full w-1/3 bg-gray-900 text-white p-2 md:p-5 z-50 transform ${
           open ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out`}
       >

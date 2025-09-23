@@ -180,7 +180,7 @@ function Chat() {
 
       {/* Scroll to top */}
       <button onClick={scrollToTop}>
-        <img src={uparrow} alt="Scroll to top" className='w-10 absolute bottom-30 right-5 hover:-translate-y-5 ease-in-out duration-300'/>
+        <img src={uparrow} alt="Scroll to top" className='w-10 absolute bottom-35 mb-8 right-5 hover:-translate-y-5 ease-in-out duration-300'/>
       </button>
     </div>
   );
