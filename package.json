@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "dompurify": "^3.2.7",
-    "firebase": "^12.3.0"
+    "firebase": "^12.3.0",
+    "cors": "^2.8.5",
+    "node-fetch": "^3.3.2"
   }
 }
