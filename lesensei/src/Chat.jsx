@@ -134,12 +134,12 @@ function Chat() {
             {/* Message */}
             {msg.from === "Le sensei" ? (
               <p
-                className="text-black h-auto max-w-[120px] px-3 py-2 bg-gray-100 rounded-2xl break-words"
+                className="text-black h-auto max-w-[600px] px-3 py-2 bg-gray-100 rounded-2xl break-words"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(msg.text) }}
               />
             ) : (
               <p
-                className="text-white h-auto max-w-[120px] px-3 py-2 bg-[rgba(0,0,0,0.5)] rounded-xl break-words"
+                className="text-white h-auto max-w-[600px] px-3 py-2 bg-[rgba(0,0,0,0.5)] rounded-xl break-words"
               >
                 <b>{msg.from}:</b> {msg.text}
               </p>
