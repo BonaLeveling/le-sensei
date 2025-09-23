@@ -36,7 +36,7 @@ function Navbar() {
           <img src={logo} alt="Logo le sensei" className="w-8 md:w-10" />
           <span
             ref={logoRef}
-            className="ml-2 font-[Rubik_Burned] text-sm md:text-xl whitespace-nowrap"
+            className="ml-2 font-rubik text-sm md:text-xl whitespace-nowrap"
           >
             {"Le sensei.".split("").map((char, i) => (
               <span key={i} className="inline-block letter">
@@ -50,7 +50,7 @@ function Navbar() {
         <div className="font-Roboto hidden md:flex md:gap-5 md:ml-auto">
           <Link
             to="/chat"
-            className="font-[Rubik_Burned] text-2xl hover:text-[rgba(255,255,255,0.8)] ease-in-out duration-300"
+            className="font-rubik text-2xl hover:text-[rgba(255,255,255,0.8)] ease-in-out duration-300"
           >
             Chat
           </Link>
@@ -73,7 +73,7 @@ function Navbar() {
           <img
             src={menuBlanc}
             alt="menu"
-            className="w-10 hover:scale-70 ease-in-out duration-300 cursor-pointer"
+            className="w-10 hover:-translate-y-1 ease-in-out duration-300 cursor-pointer"
             onClick={() => setOpen(true)}
           />
         </div>

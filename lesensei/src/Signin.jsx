@@ -41,12 +41,12 @@ function Signin () {
     }
     };
     return (
-        <div className='flex h-screen'>
+        <div className='flex h-screen font-roboto'>
             <div className='w-full lg:w-1/2 h-full flex flex-col items-center justify-center bg-white'>
 
                     <Link to="/" className='flex items-center hover:-translate-y-1 ease-in-out duration-300'>
                         <img src={logo} alt="Logo le sensei" className='w-8 lg:w-10' />
-                        <span ref={logoRef} className="ml-2 font-[Rubik_Burned] text-sm whitespace-nowrap md:text-xl" >
+                        <span ref={logoRef} className="ml-2 font-rubik text-sm whitespace-nowrap md:text-xl" >
                         {"Le sensei.".split("").map((char, i) => (
                         <span key={i} className="inline-block letter">
                             {char === " " ? "\u00A0" : char}
@@ -55,17 +55,17 @@ function Signin () {
                         </span>
                     </Link>
                 <form action="#" className='flex flex-col w-3/4 max-w-md font-Roboto mt-2 text-sm lg:mt-8'>
-                    <input type="text" name='nom' placeholder='Nom complet' className='border-2 px-4 py-1 my-1 rounded-4xl lg:py-2 md:my-2'/>
-                    <input type="text" name='pseudo'  placeholder='Pseudo' className='border-2 px-4 py-1 my-1 rounded-4xl lg:py-2 md:my-2'/>
-                    <input type="email" name='email' placeholder='Email' className='border-2 px-4 py-1 my-1 rounded-4xl lg:py-2 md:my-2'/>
-                    <input type="password" name='password'  placeholder='Mot de passe' className='border-2 px-4 py-1 my-1 rounded-4xl lg:py-2 md:my-2'/>
-                    <input type="password" name='Cpassword' placeholder='Confirmer le mot de passe' className='border-2 px-4 py-1 my-1 rounded-4xl lg:py-2 md:my-2'/>
+                    <input type="text" name='nom' placeholder='Nom complet' className='border-2 px-4 py-1 my-1 rounded-3xl lg:py-2 md:my-2'/>
+                    <input type="text" name='pseudo'  placeholder='Pseudo' className='border-2 px-4 py-1 my-1 rounded-3xl lg:py-2 md:my-2'/>
+                    <input type="email" name='email' placeholder='Email' className='border-2 px-4 py-1 my-1 rounded-3xl lg:py-2 md:my-2'/>
+                    <input type="password" name='password'  placeholder='Mot de passe' className='border-2 px-4 py-1 my-1 rounded-3xl lg:py-2 md:my-2'/>
+                    <input type="password" name='Cpassword' placeholder='Confirmer le mot de passe' className='border-2 px-4 py-1 my-1 rounded-3xl lg:py-2 md:my-2'/>
                     <div className=' mt-3 lg:mt-8'>
                         <input type="checkbox" name='validation' id='validation'className='middle mr-2 w-4'/>
-                        <label htmlFor="validation" className="text-black mt-1 text-sm mx-auto">Accepter nos conditions d'itulisation</label>
+                        <label htmlFor="validation" className="text-[#bdbdbd] mt-1 text-sm mx-auto">Accepter nos conditions d'itulisation</label>
                     </div>
-                    <input type="submit" name='Sinscrire' value="S'inscrire" className='bg-black rounded-4xl text-white py-1 mt-2 lg:py-2 lg:mt-4 hover:-translate-y-1 ease-in-out duration-300' />
-                    <button onClick={loginWithGoogle} className="bg-red-500 text-white py-1 lg:py-2 rounded-4xl mt-2 hover:-translate-y-1 ease-in-out duration-300">
+                    <input type="submit" name='Sinscrire' value="S'inscrire" className='bg-black rounded-3xl text-white py-1 mt-2 lg:py-2 lg:mt-4 hover:-translate-y-1 ease-in-out duration-300' />
+                    <button onClick={loginWithGoogle} className="bg-red-500 text-white py-1 lg:py-2 rounded-3xl mt-2 hover:-translate-y-1 ease-in-out duration-300">
                         Inscription avec Google
                     </button>
 

@@ -38,11 +38,11 @@ function Search1() {
   return (
     <>
       {/* Barre de recherche */}
-      <div className='flex h-full items-center justify-center text-xs md:text-sm'>
+      <div className='flex h-full items-center justify-center font-roboto text-xs md:text-sm'>
         <div className='text-white font-[Roboto,sans_serif] flex gap-1 md:gap-2'>
           <input
             type="text"
-            placeholder='Rechercher...'
+            placeholder='Rechercher un manga...'
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {

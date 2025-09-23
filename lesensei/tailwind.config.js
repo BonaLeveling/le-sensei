@@ -7,6 +7,14 @@ export default {
   theme: {
     extend: {},
   },
+  theme: {
+    extend: {
+      fontFamily: {
+        rubik: ['Rubik Burned', 'sans-serif'],
+        roboto: ['Roboto']
+      }
+    },
+  },
   plugins: [],
 }
 

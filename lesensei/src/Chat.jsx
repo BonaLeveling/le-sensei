@@ -1,4 +1,3 @@
-// Chat.jsx
 import './input.css';
 import './scroll.css';
 import { useState, useEffect, useRef } from "react";
@@ -31,16 +30,24 @@ function Chat() {
 
     // Préparez l'historique pour le back-end
     const historyForBackend = newMessages.map(msg => ({
-        role: msg.from === "user" ? "user" : "model",
-        parts: [{ text: msg.text }]
+      role: msg.from === "user" ? "user" : "model",
+      parts: [{ text: msg.text }]
     }));
     
     try {
+      // ✅ URL de fetch corrigée pour le bon serveur et body corrigé
       const res = await fetch('/api/serveur', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ history: historyForBackend }),
+        body: JSON.stringify({
+          message: input, 
+          history: historyForBackend
+        }),
       });
+
+      if (!res.ok) {
+        throw new Error(`Erreur HTTP: ${res.status}`);
+      }
 
       const data = await res.json();
 
@@ -81,12 +88,12 @@ function Chat() {
         <div className='flex items-center gap-2'>
           <img src={pp5} alt="" className='w-10 h-10 rounded-full sm:w-12 sm:h-12 lg:w-15 lg:h-15'/>
           <div className='flex flex-col'>
-            <span className='font-[Rubik_Burned] text-[16px] sm:text-xl'>Le sensei</span>
-            <span className='font-[Roboto,sans_serif] text-[10px] sm:text-xs text-[rgba(0,0,0,0.7)]'>Par Bonaventure</span>
+            <span className='font-rubik text-[16px] sm:text-xl'>Le sensei</span>
+            <span className='font-Roboto text-[10px] sm:text-xs text-[rgba(0,0,0,0.7)]'>Par Bonaventure</span>
           </div>
         </div>
         <div>
-          <img src={menu} alt="" className='w-8 md:w-10 hover:scale-70 ease-in-out duration-300' onClick={() => setOpen(true)}/>
+          <img src={menu} alt="" className='w-8 md:w-10 hover:-translate-y-1 ease-in-out duration-300' onClick={() => setOpen(true)}/>
         </div>
         {open && (
           <div className="fixed inset-0 bg-black/50 z-40" onClick={() => setOpen(false)}/>
@@ -109,7 +116,7 @@ function Chat() {
       {/* Messages */}
       <div
         ref={chatContainerRef}
-        className="chat-box py-2 px-2 md:px-5 lg:px-10 h-[70vh] w-full overflow-y-auto font-[Sawarabi_Gothic,sans_serif]"
+        className="chat-box py-2 px-2 md:px-5 lg:px-10 h-[70vh] w-full overflow-y-auto font-roboto"
       >
         {messages.map((msg, i) => (
           <div
@@ -152,8 +159,8 @@ function Chat() {
       </div>
 
       {/* Input */}
-      <div className='flex absolute bottom-0 w-full px-6 pb-3'>
-        <div className='mx-auto flex justify-center items-center w-full rounded-3xl' >
+      <div className='flex absolute bottom-0 w-full px-3 pb-3'>
+        <div className='mx-auto flex justify-center w-full gap-2 items-center' >
           <input
             name='message'
             id='message'
@@ -166,17 +173,17 @@ function Chat() {
                 sendMessage();
               }
             }}
-            className='chat-box flex-grow h-10 bg-[rgba(255,255,255,0.8)] font-semibold border-1 pl-4 pr-10 py-1 md:py-2 w-70 rounded-3xl outline-none break-words sm:w-100 md:w-120'
+            className='chat-box text-flex-grow h-10 bg-[rgba(255,255,255,0.8)] w-4/5 md:w-3/5 border border-black font-semibold border-1 pl-4 pr-10 py-1 md:py-2 rounded-3xl outline-none break-words '
           />
           <button onClick={sendMessage}>
-            <img src={send} alt="" className='w-11 hover:scale-70 ease-in-out duration-300'/>
+          <img src={send} alt="" className='w-11 transform transition-transform hover:translate-x-2 ease-in-out duration-300'/>
           </button>
         </div>
       </div>
 
       {/* Scroll to top */}
       <button onClick={scrollToTop}>
-        <img src={uparrow} alt="Scroll to top" className='w-8 md:w-10 absolute bottom-40 right-5 hover:-translate-y-5 ease-in-out duration-300'/>
+        <img src={uparrow} alt="Scroll to top" className='w-10 absolute bottom-30 right-5 hover:-translate-y-5 ease-in-out duration-300'/>
       </button>
     </div>
   );
