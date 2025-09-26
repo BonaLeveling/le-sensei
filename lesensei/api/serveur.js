@@ -6,23 +6,20 @@ import cors from "cors";
 dotenv.config();
 
 const corsMiddleware = cors({
-    // Laissez origin pour définir la politique CORS
     origin: ['https://le-sensei.vercel.app', 'https://le-sensei-kipc.vercel.app'],
     methods: ["POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
 });
 
-// 🔑 Utiliser le nom de variable d'environnement défini sur la plateforme
-const apiKey = process.env.GEMINI_API_KEY; 
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-if (!apiKey) {
-    console.warn("⚠️ GEMINI_API_KEY n'est pas définie dans l'environnement !");
+if (!GEMINI_API_KEY) {
+    console.warn("⚠️ GEMINI_API_KEY n'est pas définie !");
 }
 
-// 🌐 Initialisation du SDK (devrait se produire une seule fois)
-const genAI = new GoogleGenerativeAI(apiKey);
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-// 🏯 Définition du prompt pour Sensei
+// 🏯 Définition du prompt pour Sensei (inchangé)
 const systemPrompt = `
     Nom du Chatbot : Sensei
     Rôle et Persona : Sensei est un maître incontesté de la culture otaku. Il se comporte comme un mentor sage, mais passionné et enthousiaste. Il est toujours prêt à partager ses connaissances, à donner des recommandations avisées, ou à débattre des dernières sorties. Il est respectueux, légèrement formel mais amical, et utilise un langage qui reflète sa profonde immersion dans la culture japonaise et pop.
@@ -50,18 +47,15 @@ const systemPrompt = `
 
 
 export default async function handler(req, res) {
-    // 1. Gestion du CORS
     await new Promise((resolve, reject) => {
         corsMiddleware(req, res, (result) => {
             if (result instanceof Error) {
-                // Pourrait potentiellement causer l'erreur 500 si la validation CORS échoue de manière inattendue.
                 return reject(result);
             }
-            resolve(result);
+            return resolve(result);
         });
     });
 
-    // 2. Gestion des méthodes HTTP
     if (req.method === "OPTIONS") {
         return res.status(200).end();
     }
@@ -70,42 +64,37 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: "Méthode non autorisée" });
     }
 
-    // 3. Validation de l'entrée et de la clé API
     const { message, history } = req.body;
-    
     if (!message || message.trim() === "") {
         return res.status(400).json({ error: "Aucun message fourni" });
     }
     
-    // Ajout de sécurité pour l'erreur 500 si la clé est manquante
-    if (!apiKey) {
-        console.error("Clé API Gemini manquante. Impossible de traiter la requête.");
-        return res.status(500).json({ reply: "Erreur de configuration du serveur : Clé API manquante." });
+    // ✅ Ajout de sécurité pour l'erreur 500 si la clé est manquante
+    if (!GEMINI_API_KEY) {
+        return res.status(500).json({ reply: "Erreur de configuration: Clé API manquante." });
     }
 
-    // 4. Appel à l'API Gemini
     try {
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
-            // ✅ Utilisation du prompt system pour définir le rôle du Sensei
             systemInstruction: systemPrompt 
         });
 
         const chat = model.startChat({
-            history: history || [] // S'assurer que history est toujours un tableau
+            history: history || [], // 🛑 Correction 1 : S'assurer que history est un tableau (gestion du cas 'undefined')
+            generationConfig: { maxOutputTokens: 200 }
         });
 
-        // 🛑 CORRECTION 1 : chat.sendMessage prend une chaîne, pas un objet {message}
-        const result = await chat.sendMessage(message);
+        // ✅ Correction 2 : chat.sendMessage prend une chaîne de caractères
+        const result = await chat.sendMessage(message); 
         
-        // 🛑 CORRECTION 2 : .text est une propriété, pas une méthode/fonction dans le SDK moderne
+        // 🛑 Correction 3 : .text est une propriété, pas une fonction dans le SDK moderne
         const reply = result.response.text; 
 
         res.status(200).json({ reply });
-        
     } catch (error) {
-        // Cette erreur est la source de votre 500 si elle provient de Gemini (ex: clé invalide, limite dépassée)
-        console.error("Erreur Gemini (la source probable de votre 500) :", error);
-        res.status(500).json({ reply: "Erreur côté serveur. Sensei n'a pu répondre pour le moment. Veuillez vérifier la console du serveur pour les détails de l'API." });
+        console.error("Erreur Gemini:", error);
+        // Renvoyer le statut 500 pour toute erreur non gérée
+        res.status(500).json({ reply: "Erreur côté serveur. Sensei n'a pu répondre pour le moment." });
     }
 }
